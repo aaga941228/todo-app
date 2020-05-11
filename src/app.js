@@ -5,6 +5,7 @@ const path = require('path')
 const config = require('./config')
 
 const app = express()
+require('./libs/db-connection')()
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
