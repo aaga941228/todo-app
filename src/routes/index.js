@@ -1,9 +1,10 @@
-const router = require('express').Router()
+const router = require("express").Router();
+const { getTasks, addTask, turnTask, deleteTask } = require('../controllers')
 
-router.get('/', (req, res) => {
-    res.render('index', {
-        title: 'Home'
-    })
-})
+router
+  .get("/", getTasks)
+  .post("/add", addTask)
+  .get("/turn/:id", turnTask)
+  .get("/delete/:id", deleteTask)
 
-module.exports = router
+module.exports = router;

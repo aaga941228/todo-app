@@ -1,28 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <title>Todo App</title>
-</head>
-<body>
-    <h1><%= title %></h1>
-
-    <form action=""></form>
-    <hr>
-    <table class="table table-bordered table-hover">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1><%= title %></h1>
+      <hr />
+      <form action="/add" method="POST">
+        <legend>Add a task</legend>
+        <div class="form-group">
+          <input type="text" name="title" id="title" class="form-control" />
+        </div>
+        <div class="form-group">
+          <textarea
+            name="description"
+            placeholder="add a description"
+            id="description"
+            cols="30"
+            rows="1"
+            class="form-control"
+          ></textarea>
+        </div>
+        <button class="btn btn-primary">
+          Add
+        </button>
+      </form>
+      <hr />
+      <table class="table table-bordered table-hover">
         <thead>
-            <tr>
-                <th>#</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Operations</th>
-            </tr>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Operations</th>
+          </tr>
         </thead>
         <tbody>
-
+          <% for(const [index, task] of tasks.entries()) { %>
+          <tr>
+            <td><%= index + 1%></td>
+            <td>
+              <strong>
+                <%= task.title %>
+              </strong>
+            </td>
+            <td><%= task.description %></td>
+            <td>
+              <a 
+                href="/turn/<%= task._id%>" 
+                class="<%= task.status ? 'btn btn-success' : 'btn btn-dark'%>">
+                Done
+              </a>
+              <a 
+                href="/delete/<%= task._id%>" 
+                class="btn btn-danger">
+                Delete
+              </a>
+            </td>
+          </tr>
+          <% } %>
         </tbody>
-    </table>
-</body>
+      </table>
+    </div>
+
+    <script>
+      document.querySelector("#title").focus();
+    </script>
+  </body>
 </html>
